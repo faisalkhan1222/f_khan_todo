@@ -25,6 +25,23 @@ app.get("/list",function(req,res, next){
   		return next(err);
   	});
 });
+app.post("/list",function(req,res,next){
+  var newitem = req.body.item;
+console.log(newitem);
+	console.log("INSERT INTO list(item) values('"+ newitem +"')");
+	db.none("INSERT INTO list(item) values('"+ newitem +"')")
+	.then(function(){
+		console.log('success');
+		res.redirect('/list');
+	})
+	.catch(function(err){
+		console.log('err');
+		return next(err);
+	});
+});
+
+
+
 
 app.listen(8000, function(){
  console.log('listening on port 8000');
